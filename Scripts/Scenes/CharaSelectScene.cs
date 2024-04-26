@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using GameMain;
 using vvapi;
-using Newtonsoft.Json;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using vvproj;
@@ -45,7 +44,8 @@ public class CharaSelectScene : MonoBehaviour
   {
     yield return client.GetSingers();
     // ボタンの追加処理
-    vvapiSpeakerType[] singers = JsonConvert.DeserializeObject<vvapiSpeakerType[]>(client.Json);
+    vvapiSpeakersType vvapiSpeakersData = JsonUtility.FromJson<vvapiSpeakersType>("{\"vvapiSpeakers\":"+client.Json+"}");
+    vvapiSpeakerType[] singers =vvapiSpeakersData.vvapiSpeakers;
     List<Transform>[] CharacterButtons = { new List<Transform>(), new List<Transform>() };
 
 
@@ -245,4 +245,8 @@ public class CharaSelectScene : MonoBehaviour
 
     SceneManager.LoadScene(sceneName);
   }
+}
+class vvapiSpeakersType
+{
+  public vvapiSpeakerType[] vvapiSpeakers;
 }

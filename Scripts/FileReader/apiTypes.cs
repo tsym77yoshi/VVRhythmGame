@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace vvapi
 {
+  [System.Serializable]
   public class vvapiSpeakerType
   {
     public object supported_features;

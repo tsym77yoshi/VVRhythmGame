@@ -72,7 +72,7 @@ public class CharaSerif
     new serifType("special","name","ずんだもん","おめでとうなのだ"),
     new serifType("great01","name","ずんだもん","さすがなのだ"),
     new serifType("great02","name","ずんだもん","すごいのだ"),
-    new serifType("notgood","name","ずんだもん","いいなのだ"),
+    new serifType("notgood","name","ずんだもん","いいかんじなのだ"),
     new serifType("mystery","name","ずんだもん","ファイトなのだ")
   };
   private List<serifType> defaultNetaSerifSets = new List<serifType>{

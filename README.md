@@ -1,5 +1,7 @@
 一応公開はしていますが、コードが汚すぎるのには注意してください😭（実力不足です）
 
+このコードはUnityのAssetsの中身で、Unityのバージョンは2022.3.25f1です。
+
 This game includes code derived from VOICEVOX, which is licensed under the GNU Lesser General Public License (LGPL) version 3.
 Original VOICEVOX code and license details can be found at: https://github.com/Hiroshiba/voicevox
 

@@ -1,0 +1,13 @@
+四国めたんずんだもん春日部つむぎ雨晴はう波音リツ玄野武宏白上虎太郎青山龍星冥鳴ひまり九州そらもち子さん剣崎雌雄WhiteCUL後鬼No.7ちび式じい櫻歌ミコ小夜/SAYOナースロボ＿タイプＴ†聖騎士 紅桜†雀松朱司麒ヶ島宗麟春歌ナナ猫使アル猫使ビィ中国うさぎ栗田まろんあいえるたん満別花丸琴詠ニア
+ノーマルあまあまツンツンセクシーヒソヒソノーマルあまあまツンツンセクシーヒソヒソヘロヘロなみだめノーマルノーマルノーマルクイーンノーマル(ソング)ノーマルノーマル喜びツンギレ悲しみふつうわーいびくびくおこびえーんノーマル熱血不機嫌喜びしっとりかなしみノーマルノーマルあまあまツンツンセクシーノーマルセクシー／あん子泣き怒り喜びのんびりノーマルノーマルたのしいかなしいびえーん人間ver.ぬいぐるみver.ノーマルアナウンス読み聞かせノーマルノーマル第二形態ロリノーマルノーマル楽々恐怖ノーマルノーマルノーマルノーマルノーマルおちつきうきうきノーマルおちつきノーマルおどろきこわがりへろへろノーマルノーマルノーマル元気ささやきぶりっ子ボーイノーマル
+怒り叫び喜びツクモちゃんユーレイちゃん
+音域調整声量調整
+-1234567890
+VOICEVOX:(cv 明日葉よもぎ)
+This game includes code derived from VOICEVOX, which is licensed under the GNU Lesser General Public License (LGPL) version 3.
+Original VOICEVOX code and license details can be found at: https://github.com/Hiroshiba/voicevox
+
+This game also includes the "源柔ゴシック" font, which is licensed under the SIL Open Font License (SIL OFL) version 1.1.
+Details about the "源柔ゴシック" font can be found at: http://jikasei.me/font/genjyuu/
+次へスタート再プレイ.vvproj読み込み(VOICEVOXの保存ファイル)伴奏の音楽ファイル(.wav)読み込みOKキャラ再選択生成中
+リズムゲーム(仮)

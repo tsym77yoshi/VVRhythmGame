@@ -44,8 +44,8 @@ public class CharaSelectScene : MonoBehaviour
   {
     yield return client.GetSingers();
     // ボタンの追加処理
-    vvapiSpeakersType vvapiSpeakersData = JsonUtility.FromJson<vvapiSpeakersType>("{\"vvapiSpeakers\":"+client.Json+"}");
-    vvapiSpeakerType[] singers =vvapiSpeakersData.vvapiSpeakers;
+    vvapiSpeakersType vvapiSpeakersData = JsonUtility.FromJson<vvapiSpeakersType>("{\"vvapiSpeakers\":" + client.Json + "}");
+    vvapiSpeakerType[] singers = vvapiSpeakersData.vvapiSpeakers;
     List<Transform>[] CharacterButtons = { new List<Transform>(), new List<Transform>() };
 
 

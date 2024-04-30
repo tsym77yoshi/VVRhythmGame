@@ -42,6 +42,7 @@ namespace vvproj
     public int keyRangeAdjustment;
     public int volumeRangeAdjustment;
     public vvprojNoteType[] notes;
+    public double[] pitchEditData;
   }
   [System.Serializable]
   public class vvprojSpeakerType

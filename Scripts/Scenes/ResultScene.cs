@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using GameMain;
 using TMPro;
+using unityroom.Api;
 
 public class ResultScene : MonoBehaviour
 {
@@ -99,6 +100,7 @@ public class ResultScene : MonoBehaviour
       yield return null;
     }
     Debug.Log("result:" + (int)(result));
+    SendScore(trueResult);
     foreach(Button nextButton in NextButtons)
     {
       nextButton.interactable = true;
@@ -121,5 +123,11 @@ public class ResultScene : MonoBehaviour
       }
     }
     GameMain.Store.serifs = new AudioClip[2];
+  }
+
+  public void SendScore(int trueResult){
+    if(trueResult!=null){
+      UnityroomApiClient.Instance.SendScore(1, (float)trueResult, ScoreboardWriteMode.HighScoreDesc);
+    }
   }
 }

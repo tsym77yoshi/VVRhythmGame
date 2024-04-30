@@ -71,12 +71,7 @@ class VVNetworking : MonoBehaviour
         // MusicToAudioClip の結果を待つ
         yield return client.ScoreToQuery(communicationdata);
         vvapiMusicQuery query = client.AudioMusicQuery;
-
-        // 声量調整
-        for (int j = 0; j < query.f0.Length; j++)
-        {
-          query.f0[j] = query.f0[j] * Math.Pow(2, tracks[i].volumeRangeAdjustment / 12);
-        }
+        query = NoteManager.QueryAdjustment(query, tracks[i].pitchEditData, tracks[i].volumeRangeAdjustment, GameMain.Setting.restDurationSeconds);
 
         if (target == 0)
         {

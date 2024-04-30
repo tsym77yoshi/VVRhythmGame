@@ -2,11 +2,16 @@
 
 このコードはUnityのAssetsの中身で、Unityのバージョンは2022.3.25f1です。
 
-This game includes code derived from VOICEVOX, which is licensed under the GNU Lesser General Public License (LGPL) version 3.
-Original VOICEVOX code and license details can be found at: https://github.com/Hiroshiba/voicevox
+このゲームはGNU Lesser General Public License (LGPL) version 3ライセンスのVOICEVOXの一部コード、Mit LicenseのUnityroom Client Libraryのライブラリを使用しています。
+VOICEVOXのコードとライセンスの詳細: https://github.com/Hiroshiba/voicevox
+Unityroom Client Libraryのコードとライセンスの詳細: https://github.com/naichilab/unityroom-client-library
 
-This game also includes the "源柔ゴシック" font, which is licensed under the SIL Open Font License (SIL OFL) version 1.1.
-Details about the "源柔ゴシック" font can be found at: http://jikasei.me/font/genjyuu/
+また、SIL Open Font License (SIL OFL) version 1.1.ライセンスの"源柔ゴシック"フォントを使用しています。
+源柔ゴシックのフォントとライセンスの詳細: http://jikasei.me/font/genjyuu/
+
+- 導入
+
+https://github.com/naichilab/unityroom-client-libraryが導入されています
 
 - VoiceVoxApiClient.cs
 
@@ -35,3 +40,7 @@ VVNetworking.instance.trackCommunication(○○とかでできるはず
 - フォントについて
 
 GenJyuuGothicのHeavyをお借りしています
+
+- スコア送信について
+
+HMAC認証用キーは載せていません。

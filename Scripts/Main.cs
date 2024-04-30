@@ -11,9 +11,10 @@ namespace GameMain
   public class GameNote : IComparable<GameNote>
   {
     public float StartTime;
-    public float EndTime;// shortNoteならStartとEnd一致させるべし
+    public float EndTime;
     // [firstChara] 0~3, 10~13(long) [SecondChara] 20~23, 30~33(long)
     public short type;
+    public bool longState = false;// trueならlongNoteのはじめの部分の判定が終わった
     public GameNote(float startTime, float endTime, short Type)
     {
       StartTime = startTime;
@@ -44,12 +45,13 @@ namespace GameMain
 
     public static List<GameNote> noteFlow = new List<GameNote>();
 
+    public static float[] volumes = new float[] { 1f, 1f, 1f, 1f };// chara1, chara2, backmusic, backchoros
     public static float speed = 200;
     public static float adjustSeconds = 0;// 判定調節。正ならnoteが流れてくるのが遅くなる
   }
   public static class Setting
   {
-    public static float restDurationSeconds = 1;// 音を最初にどれだけ開けるか
+    public static readonly float restDurationSeconds = 1;// 音を最初にどれだけ開けるか
     public static float minLongNoteSecond = 1;// 一音の長さがどれより長いとロングノーツにするか
   }
   public static class ScoreStore
@@ -71,19 +73,21 @@ namespace GameMain
       }
       if (totalNote == results[0])
       {
-        return new string[]{"allexce"};
+        return new string[] { "allexce" };
       }
       if (results[3] == 0)
       {
-        return new string[]{"fullcom"};
+        return new string[] { "fullcom" };
       }
-      if (results[0] + results[1] >= totalNote * 0.8){
-        return new string[]{"great01","great02"};
+      if (results[0] + results[1] >= totalNote * 0.8)
+      {
+        return new string[] { "great01", "great02" };
       }
-      if(results[0]+results[1]>totalNote*0.5){
-        return new string[]{"notgood"};
+      if (results[0] + results[1] > totalNote * 0.5)
+      {
+        return new string[] { "notgood" };
       }
-      return new string[]{"mystery"};
+      return new string[] { "mystery" };
     }
     // Excellent, Great, Good, Miss
     // 0.1s 0.15s 0.2s over

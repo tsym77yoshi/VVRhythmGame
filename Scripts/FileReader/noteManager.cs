@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using GameMain;
+using vvapi;
 
 namespace vvproj
 {
@@ -25,6 +26,89 @@ namespace vvproj
   public class NoteManager
   {
     private static float frameRate = 93.75f;// フレームレート。現時点のVoicevoxの仕様では変えられないはず
+    private const float VALUE_INDICATING_NO_DATA = -1f;
+    private static readonly List<string> _unvoicedPhonemes = new List<string>
+      {
+  "pau",
+  "cl",
+  "ch",
+  "f",
+  "h",
+  "k",
+  "p",
+  "s",
+  "sh",
+  "t",
+  "ts",
+      };
+    private static vvapiMusicQuery ApplyPitchEdit(
+      vvapiMusicQuery singingGuide,
+      double[] pitchEditData,
+      double restDurationSeconds
+    /* , float editFrameRate フレームレートが.vvprojファイル内で見つけられなかった為*/
+    )
+    {
+      if (pitchEditData == null)// 過去のバージョンならないので
+      {
+        return singingGuide;
+      }
+      /* コピーしてきたもの。使いかたが分からなかった。
+      // 歌い方のフレームレートと編集フレームレートが一致しない場合はエラー
+      // TODO: 補間するようにする
+      if (singingGuide.FrameRate != editFrameRate)
+      {
+        throw new Exception("The frame rate between the singing guide and the edit data does not match.");
+      }*/
+
+      double[] f0 = singingGuide.f0;
+      vvapiphoneme[] phonemes = singingGuide.phonemes;
+
+      // 各フレームの音素の配列を生成する
+      List<string> framePhonemes = ConvertToFramePhonemes(phonemes);
+      if (f0.Length != framePhonemes.Count)
+      {
+        Debug.LogError("f0.length and framePhonemes.length do not match.");
+      }
+
+      int startFrame = (int)Math.Round(restDurationSeconds * frameRate);
+      int endFrame = Math.Min(f0.Length, pitchEditData.Length + startFrame);
+      for (int i = startFrame; i < endFrame; i++)
+      {
+        var phoneme = framePhonemes[i];
+        var voiced = !_unvoicedPhonemes.Contains(phoneme);
+        if (voiced && pitchEditData[i - startFrame] != VALUE_INDICATING_NO_DATA)
+        {
+          singingGuide.f0[i] = pitchEditData[i - startFrame];
+        }
+      }
+      return singingGuide;
+    }
+    private static List<string> ConvertToFramePhonemes(vvapiphoneme[] phonemes)
+    {
+      List<string> framePhonemes = new List<string>();
+      foreach (var phoneme in phonemes)
+      {
+        for (int i = 0; i < phoneme.frame_length; i++)
+        {
+          framePhonemes.Add(phoneme.phoneme);
+        }
+      }
+      return framePhonemes;
+    }
+    public static vvapiMusicQuery QueryAdjustment(
+      vvapiMusicQuery query,
+      double[] pitchEditData,
+      int volumeRangeAdjustment,
+      double restDurationSeconds)
+    {
+      query = ApplyPitchEdit(query, pitchEditData, restDurationSeconds);
+      // 声量調整
+      for (int j = 0; j < query.f0.Length; j++)
+      {
+        query.f0[j] = query.f0[j] * Math.Pow(2, volumeRangeAdjustment / 12);
+      }
+      return query;
+    }
 
     public static string FetchQuery(
         vvprojNoteType[] notes,
@@ -129,13 +213,14 @@ namespace vvproj
           noteOffTime = TickToSecond(note.position + note.duration, tempos, tpqn) + restDurationSeconds;
           type += 10;
         }
-        else{
+        else
+        {
           // shortNoteなら
           noteOffTime = noteOnTime;
         }
 
         // 追加
-        if(note.lyric!="っ"&&note.lyric!="ッ")// 小文字の「っ」は息を止めるのに使われるらしい
+        if (note.lyric != "っ" && note.lyric != "ッ")// 小文字の「っ」は息を止めるのに使われるらしい
         {
           result.Add(new GameNote(noteOnTime, noteOffTime, type));
         }

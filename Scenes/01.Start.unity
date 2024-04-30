@@ -2135,6 +2135,67 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &701928027
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 516383865773776201, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336439062694548224, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: HmacKey
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323818951622561360, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
+      propertyPath: m_Name
+      value: UnityroomApiClient
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 00ae2bf8c8a624ed38161cab9eeda7f7, type: 3}
 --- !u!1 &740406075
 GameObject:
   m_ObjectHideFlags: 0
@@ -4528,12 +4589,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "This game includes code derived from VOICEVOX, which is licensed under
-    the GNU Lesser General Public License (LGPL) version 3.\r\nOriginal VOICEVOX
-    code and license details can be found at: https://github.com/Hiroshiba/voicevox\r\n\r\nThis
-    game also includes the \"\u6E90\u67D4\u30B4\u30B7\u30C3\u30AF\" font, which is
-    licensed under the SIL Open Font License (SIL OFL) version 1.1.\r\nDetails about
-    the \"\u6E90\u67D4\u30B4\u30B7\u30C3\u30AF\" font can be found at: http://jikasei.me/font/genjyuu/"
+  m_text: "\u3053\u306E\u30B2\u30FC\u30E0\u306FGNU Lesser General Public License
+    (LGPL) version 3\u30E9\u30A4\u30BB\u30F3\u30B9\u306EVOICEVOX\u306E\u4E00\u90E8\u30B3\u30FC\u30C9\u3001Mit
+    License\u306EUnityroom Client Library\u306E\u30E9\u30A4\u30D6\u30E9\u30EA\u3092\u4F7F\u7528\u3057\u3066\u3044\u307E\u3059\u3002\r\nVOICEVOX\u306E\u30B3\u30FC\u30C9\u3068\u30E9\u30A4\u30BB\u30F3\u30B9\u306E\u8A73\u7D30:
+    https://github.com/Hiroshiba/voicevox\r\nUnityroom Client Library\u306E\u30B3\u30FC\u30C9\u3068\u30E9\u30A4\u30BB\u30F3\u30B9\u306E\u8A73\u7D30:
+    https://github.com/naichilab/unityroom-client-library\r\n\r\n\u307E\u305F\u3001SIL
+    Open Font License (SIL OFL) version 1.1.\u30E9\u30A4\u30BB\u30F3\u30B9\u306E\"\u6E90\u67D4\u30B4\u30B7\u30C3\u30AF\"\u30D5\u30A9\u30F3\u30C8\u3092\u4F7F\u7528\u3057\u3066\u3044\u307E\u3059\u3002\r\n\u6E90\u67D4\u30B4\u30B7\u30C3\u30AF\u306E\u30D5\u30A9\u30F3\u30C8\u3068\u30E9\u30A4\u30BB\u30F3\u30B9\u306E\u8A73\u7D30:
+    http://jikasei.me/font/genjyuu/"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 529966a378647234bb868f857686b5dc, type: 2}
   m_sharedMaterial: {fileID: 7090805791010232400, guid: 529966a378647234bb868f857686b5dc, type: 2}
@@ -6435,3 +6497,4 @@ SceneRoots:
   - {fileID: 696361205}
   - {fileID: 1957813623}
   - {fileID: 634875649}
+  - {fileID: 701928027}

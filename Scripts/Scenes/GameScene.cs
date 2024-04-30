@@ -54,7 +54,7 @@ public class GameScene : MonoBehaviour
   void Start()
   {
     speed = GameMain.Store.speed;
-    noteFlowTime = (notePrefab.GetComponent<RectTransform>().position.x - hanteiBar.position.x ) / speed;
+    noteFlowTime = (notePrefab.GetComponent<RectTransform>().position.x - hanteiBar.position.x) / speed;
     audioSources = this.GetComponents<AudioSource>();
     if (GameMain.Store.characters[1] != null)
     {
@@ -112,7 +112,16 @@ public class GameScene : MonoBehaviour
     {
       if (notes[i].Count > 0)
       {
-        if (Time.time - notes[i][0].EndTime - HanteiTime > HanteiRanges[HanteiRanges.Length - 1])
+        float HanteiDuration = Time.time - HanteiTime;
+        if (notes[i][0].longState)// ロングノーツの前の方が終わっているやつはEndTimeで判定
+        {
+          HanteiDuration -= notes[i][0].EndTime;
+        }
+        else
+        {
+          HanteiDuration -= notes[i][0].StartTime;
+        }
+        if (HanteiDuration > HanteiRanges[HanteiRanges.Length - 1])
         {
           RemoveNote(i, (short)(HanteiRanges.Length));
         }
@@ -127,13 +136,21 @@ public class GameScene : MonoBehaviour
   {
     typeDirection = (short)(typeDirection % 10);
     if (notes[typeDirection].Count == 0) return;
-    if (notes[typeDirection][0].type % 20 >= 10) return;// longNoteなら
+    if (notes[typeDirection][0].longState) return;// longNoteで既に処理が終わっているものならば
     float timeDifference = notes[typeDirection][0].StartTime - (Time.time - HanteiTime);
     for (short i = 0; i < HanteiRanges.Length; i++)
     {
       if (HanteiRanges[i] > Math.Abs(timeDifference))
       {
-        RemoveNote(typeDirection, i);
+        if (notes[typeDirection][0].type % 20 >= 10)// longNoteなら
+        {
+          notes[typeDirection][0].longState = true;
+          HanteiResult(typeDirection, i);
+        }
+        else
+        {
+          RemoveNote(typeDirection, i);
+        }
         break;
       }
     }
@@ -142,25 +159,30 @@ public class GameScene : MonoBehaviour
   {
     typeDirection = (short)(typeDirection % 10);
     if (notes[typeDirection].Count == 0) return;
-    if (notes[typeDirection][0].type % 20 < 10) return;// shortNoteなら
+    if (!notes[typeDirection][0].longState) return;// longNoteの前の方の処理が終わっていなければ
     float timeDifference = notes[typeDirection][0].EndTime - (Time.time - HanteiTime);
     for (short i = 0; i < HanteiRanges.Length; i++)
     {
       if (HanteiRanges[i] > Math.Abs(timeDifference))
       {
         RemoveNote(typeDirection, i);
-        break;
+        return;
       }
     }
+    RemoveNote(typeDirection, (short)(HanteiRanges.Length));// Miss
   }
   void RemoveNote(short typeDirection, short result)
+  {
+    HanteiResult(typeDirection, result);
+    Destroy(noteObjs[typeDirection][0].gameObject);
+    notes[typeDirection].RemoveAt(0);
+    noteObjs[typeDirection].RemoveAt(0);
+  }
+  void HanteiResult(short typeDirection, short result)
   {
     hanteiAnimator.SetTrigger($"result_0{result}");
     Debug.Log(result);
     GameMain.ResultStore.results[result]++;
-    Destroy(noteObjs[typeDirection][0].gameObject);
-    notes[typeDirection].RemoveAt(0);
-    noteObjs[typeDirection].RemoveAt(0);
   }
 
   IEnumerator game()
@@ -232,7 +254,7 @@ public class GameScene : MonoBehaviour
       notes[note.type % 10].Add(note);
 
       GameObject newChild = Instantiate(notePrefab);
-      
+
       newChild.transform.SetParent(NoteParent, false);
       newChild.transform.localPosition = notePrefab.transform.position - new Vector3(0, 30 * (note.type % 10), 0);
       newChild.GetComponent<Image>().sprite = sprites[note.type % 10];
@@ -282,6 +304,11 @@ public class GameScene : MonoBehaviour
       }
       yield return null;
     } */
+    // GameNoteのおかたずけ
+    foreach(GameNote note in GameMain.Store.noteFlow){
+      note.longState = false;
+    }
+
     // TODO: audio生成開始 badcode
     CharaSerif charaSerif = new CharaSerif();
     short CharacterCount = (short)Math.Min(GameMain.ScoreStore.tracks.Length, 2);
@@ -375,17 +402,21 @@ public class GameScene : MonoBehaviour
     yield return new WaitForSeconds(waitSeconds);
     playAudioSources();
     yield return new WaitForSeconds(GameMain.Setting.restDurationSeconds);
+    audioSources[2].volume = GameMain.Store.volumes[2];
     playAudioSource(GameMain.Store.backMusic, audioSources[2]);
   }
   void playAudioSources()
   {
     for (short i = 0; i < GameMain.Store.clips.Length; i++)
     {
+      audioSources[i].volume = GameMain.Store.volumes[i];
       playAudioSource(GameMain.Store.clips[i], audioSources[i]);
     }
-    foreach (AudioClip audioClip in GameMain.Store.BackChorus)
+    for (short i = 0; i < GameMain.Store.BackChorus.Count; i++)
     {
+      AudioClip audioClip = GameMain.Store.BackChorus[i];
       AudioSource aus = this.gameObject.AddComponent<AudioSource>() as AudioSource;
+      aus.volume = GameMain.Store.volumes[3];
       playAudioSource(audioClip, aus);
     }
   }
